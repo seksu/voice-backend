@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-dialect-unauth-dep
+  labels:
+    app: go-dialect-unauth-app
+spec:
+  securityContext:
+    runAsUser: 1000009
+  replicas: 3
+  selector:
+    matchLabels:
+      app: go-dialect-unauth-app
+  template:
+    metadata:
+      labels:
+        app: go-dialect-unauth-app
+    spec:
+      containers:
+      - name: go-dialect-unauth-con
+        image: seksuu/go-dialect-unauth:latest
+        ports:
+        - containerPort: 3001
+        volumeMounts:
+        - mountPath: /app/uploads/
+          name: voice-volume
+      volumes:
+      - name: voice-volume
+        hostPath:
+          path: /lustre/ai/project/cmkl/thai_dialect/voice-volume
+          type: Directory

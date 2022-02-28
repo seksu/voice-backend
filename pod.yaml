@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: go-dialect-unauth-pod
+  labels:
+    app: go-dialect-unauth-app
+spec:
+  containers:
+  - name: go-dialect-unauth-con
+    image: seksuu/go-dialect-unauth
+    ports:
+    - containerPort: 9001
